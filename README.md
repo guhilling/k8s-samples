@@ -1,2 +1,2 @@
-# k8s-samples
-example resources for kubernetes and openshift
+# Kubernetes Grundlagen
+Diese Repository enthält Beispielressourcen und -Kommandos für grundlegende Kubernetes-Ressourcen.

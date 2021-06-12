@@ -16,4 +16,4 @@ spec:
     spec:
       containers:
       - image: registry.access.redhat.com/ubi8/httpd-24:latest
-        name: httpd-24
+        name: apache
