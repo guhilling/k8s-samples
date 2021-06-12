@@ -1,7 +1,7 @@
 # Deployment als Ressource-Datei ablegen.
 Das Deployment kann erzeugt werden mit:
 ```
-oc create -f pod_apache.yaml
+oc create -f Deployment_Apache.yaml
 ```
 
 Um die Datei anzulegen:
