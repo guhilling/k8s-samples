@@ -16,8 +16,9 @@ spec:
     spec:
       containers:
       - image: registry.access.redhat.com/ubi8/httpd-24:latest
-        name: apacheapiVersion: v1
+        name: apache
 ---
+apiVersion: v1
 kind: Service
 metadata:
   labels:
