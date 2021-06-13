@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: apache
+  name: apache
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apache
+  template:
+    metadata:
+      labels:
+        app: apache
+    spec:
+      containers:
+      - image: registry.access.redhat.com/ubi8/httpd-24:latest
+        name: apache
+        volumeMounts:
+          - mountPath: /var/www/html
+            name: www-volume
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: www-content
+        name: www-volume
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: apache
+  name: apache
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: apache
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: apache
+  name: apache
+spec:
+  port:
+    targetPort: 8080
+  to:
+    kind: ""
+    name: apache
