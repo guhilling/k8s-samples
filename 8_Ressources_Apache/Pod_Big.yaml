@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: apache
+spec:
+  containers:
+  - image: registry.access.redhat.com/ubi8/httpd-24:latest
+    name: apache
+    resources:
+      requests:
+        memory: 10Gi
+      limits:
+        memory: 10Gi
+        cpu: 100m
