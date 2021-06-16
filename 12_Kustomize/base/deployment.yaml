@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    schmidtgruppe.it/contact: gunnar@hilling.de
+  labels:
+    app: apache
+    app.kubernetes.io/name: mis
+  name: apache
+spec:
+  selector:
+    matchLabels:
+      app: apache
+  template:
+    metadata:
+      labels:
+        app: apache
+        app.kubernetes.io/name: mis
+      annotations:
+        schmidtgruppe.it/contact: gunnar@hilling.de
+    spec:
+      containers:
+      - image: registry.access.redhat.com/ubi8/httpd-24:latest
+        name: apache
+        livenessProbe:
+          exec:
+            command:
+              - "/bin/sh"
+              - "-c"
+              - "if [ -f /tmp/failed ]; then exit 1; fi"
+          failureThreshold: 5
+          periodSeconds: 2
+          timeoutSeconds: 1
+        readinessProbe:
+          httpGet:
+            path: "/"
+            port: 8080
+          failureThreshold: 1
+          periodSeconds: 10
+          timeoutSeconds: 1
+        startupProbe:
+          exec:
+            command:
+              - "/bin/sh"
+              - "-c"
+              - "sleep 10"
+          timeoutSeconds: 20
+        resources:
+          requests:
+            cpu: 100m
+            memory: 200Mi
+          limits:
+            cpu: 500m
+            memory: 200Mi
+        volumeMounts:
+          - mountPath: /var/www/html
+            name: www-volume
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: www-content
+        name: www-volume

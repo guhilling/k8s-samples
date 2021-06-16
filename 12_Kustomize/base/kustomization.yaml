@@ -1,0 +1,5 @@
+resources:
+- service.yaml
+- route.yaml
+- configmap.yaml
+- deployment.yaml
