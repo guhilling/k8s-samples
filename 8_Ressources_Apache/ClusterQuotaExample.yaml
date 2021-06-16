@@ -1,0 +1,16 @@
+apiVersion: quota.openshift.io/v1
+kind: ClusterResourceQuota
+metadata:
+  name: trainingrestriction
+spec:
+  quota: 
+    hard:
+      pods: "100"
+      services: "50"
+      cpu: "4"
+      memory: 8Gi
+  selector:
+    annotations: null
+    labels: 
+      matchLabels:
+        isios.com/purpose: training
