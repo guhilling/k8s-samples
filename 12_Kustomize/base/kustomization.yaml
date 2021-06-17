@@ -1,5 +1,9 @@
 resources:
 - service.yaml
 - route.yaml
-- configmap.yaml
 - deployment.yaml
+
+configMapGenerator:
+  - name: www-content
+    files:
+      - index.html
