@@ -5,13 +5,12 @@ metadata:
 spec:
   containers:
   - name: memory-demo-ctr
-    image: docker.io/polinux/stress-ng:latest
+    image: docker.io/polinux/stress:latest
     resources:
       limits:
-        memory: "100Mi"
-        cpu: "50m"
+        memory: "200Mi"
+        cpu: 2000m
       requests:
         memory: "100Mi"
-        cpu: "50m"
-    command: ["stress-ng"]
-    args: ["--vm", "1", "--vm-bytes", "150M", "--vm-hang", "1", "--cpu", "5", "--cpu-load", "100", "--aggressive"]
+    command: ["stress"]
+    args: ["--vm", "1", "--vm-bytes", "250M", "--vm-hang", "1"]
