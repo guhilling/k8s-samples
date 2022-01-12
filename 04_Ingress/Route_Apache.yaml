@@ -44,3 +44,23 @@ spec:
   to:
     kind: ""
     name: apache
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  labels:
+    app: apache
+  name: apache
+spec:
+  rules:
+    - host: apache
+      http:
+        paths:
+        - path: /
+          pathType: Exact
+          backend:
+            service:
+              name: apache
+              port:
+                number: 8080
+          
