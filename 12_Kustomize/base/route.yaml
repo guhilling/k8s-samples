@@ -8,5 +8,4 @@ spec:
   port:
     targetPort: 8080
   to:
-    kind: ""
     name: apache
