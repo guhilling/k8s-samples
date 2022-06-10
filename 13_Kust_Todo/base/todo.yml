@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: todo
+  name: todo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: todo
+    spec:
+      containers:
+      - image: quay.io/redhattraining/do180-todonodejs-12
+        name: todo-api
+        ports:
+          - containerPort: 30080
+            name: todo-api
+        resources:
+          limits:
+            cpu: 100m
+            memory: 512Mi
+        env:
+        - name: MYSQL_ENV_MYSQL_DATABASE
+          value: items
+        - name: MYSQL_ENV_MYSQL_USER
+          value: user1
+        - name: MYSQL_ENV_MYSQL_PASSWORD
+          value: mypa55

@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: mysql
+  name: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      volumes:
+        - name: mysql-data
+          persistentVolumeClaim:
+            claimName: mysql
+      containers:
+      - image: registry.redhat.io/rhel8/mysql-80:1
+        name: mysql-80
+        volumeMounts:
+          - mountPath: /var/lib/mysql/data
+            name: mysql-data
+        ports:
+          - containerPort: 3306
+            name: mysql-db
+        resources:
+          limits:
+            cpu: 100m
+            memory: 512Mi
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: r00tpa55
+        - name: MYSQL_USER
+          value: user1
+        - name: MYSQL_PASSWORD
+          value: mypa55
+        - name: MYSQL_DATABASE
+          value: items
