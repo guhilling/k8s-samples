@@ -3,6 +3,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 resources:
   - mysql-svc.yml
   - todo-svc.yml
+  - todo-secrets.yml
   - db-pvc.yml
   - mysql.yml
   - todo.yml

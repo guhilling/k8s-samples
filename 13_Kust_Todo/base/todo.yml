@@ -32,4 +32,7 @@ spec:
         - name: MYSQL_ENV_MYSQL_USER
           value: user1
         - name: MYSQL_ENV_MYSQL_PASSWORD
-          value: mypa55
+          valueFrom:
+            secretKeyRef:
+              key: DB_PASSWORD
+              name: todo-credentials
