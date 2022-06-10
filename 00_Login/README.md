@@ -1,7 +1,7 @@
 # Login
-Öffnen: https://console-openshift-console.apps.sg-p01.sg-k8s.isios.com
+Öffnen: https://console-openshift-console.apps._yourdomain_
 
-_SGService-AD_ wählen und mit AD-Credentials anmelden.
+Mit bekannten Credentials anmelden.
 
 # Command Line Tools
 
