@@ -35,10 +35,14 @@ spec:
             memory: 512Mi
         env:
         - name: MYSQL_ROOT_PASSWORD
-          value: r00tpa55
+          valueFrom:
+            secretKeyRef:
+              key: DB_ROOT_PASSWORD
+              name: todo-credentials
         - name: MYSQL_USER
-          value: user1
-        - name: MYSQL_PASSWORD
-          value: mypa55
+          valueFrom:
+            secretKeyRef:
+              key: DB_PASSWORD
+              name: todo-credentials
         - name: MYSQL_DATABASE
           value: items
