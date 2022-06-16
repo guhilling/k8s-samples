@@ -1,0 +1,51 @@
+kind: CronJob
+apiVersion: batch/v1
+metadata:
+  name: openshift-backup
+spec:
+  schedule: "36 3 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 5
+  failedJobsHistoryLimit: 5
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      template:
+        metadata:
+          labels:
+            app: openshift-backup
+        spec:
+          initContainers:
+            - name: backup
+              image: "registry.redhat.io/openshift4/ose-cli:v4.10"
+              command:
+                - "/bin/bash"
+                - "-c"
+                - oc get no -l node-role.kubernetes.io/master --no-headers -o name | head -n 1 |xargs -I {} -- oc debug {} -- bash -c 'chroot /host rm -rf /home/core/backup && chroot /host mkdir /home/core/backup && chroot /host sudo -E /usr/local/bin/cluster-backup.sh /home/core/backup'
+          containers:
+            - name: copy-backup
+              image: "registry.redhat.io/openshift4/ose-cli:v4.10"
+              env:
+                - name: BACKUP_DIR
+                  valueFrom:
+                    configMapKeyRef:
+                      key: BACKUP_DIR
+                      name: backupconfig
+                      optional: false
+              volumeMounts:
+                - mountPath: /mnt/backup
+                  name: backup
+              command:
+                - "/bin/bash"
+                - "-c"
+                - ( mkdir -p $BACKUP_DIR && oc get no -l node-role.kubernetes.io/master --no-headers -o name | head -n 1 |xargs -I {} -- oc debug {} -- bash -c 'chroot /host tar -C /home/core/ backup -cf -' ) | ( tar -C $BACKUP_DIR -xf - ) && find $BACKUP_DIR -type f -mtime +7 -delete
+          volumes:
+            - name: backup
+              persistentVolumeClaim:
+                claimName: ocp-etcd-backup
+          restartPolicy: "Never"
+          terminationGracePeriodSeconds: 30
+          activeDeadlineSeconds: 500
+          dnsPolicy: "ClusterFirst"
+          serviceAccountName: "openshift-backup"
+          serviceAccount: "openshift-backup"
