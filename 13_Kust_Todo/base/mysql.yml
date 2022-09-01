@@ -34,12 +34,9 @@ spec:
             cpu: 100m
             memory: 512Mi
         env:
-        - name: MYSQL_ROOT_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              key: DB_ROOT_PASSWORD
-              name: todo-credentials
         - name: MYSQL_USER
+          value: user1
+        - name: MYSQL_PASSWORD
           valueFrom:
             secretKeyRef:
               key: DB_PASSWORD
