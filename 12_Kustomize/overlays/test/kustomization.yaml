@@ -6,7 +6,6 @@ bases:
 images:
   - name: registry.access.redhat.com/ubi8/httpd-24
     newTag: 1-140
-namePrefix: test-
 commonAnnotations:
   isios.com/purpose: testing
 commonLabels:
