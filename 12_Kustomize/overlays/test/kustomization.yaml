@@ -10,5 +10,4 @@ namePrefix: test-
 commonAnnotations:
   isios.com/purpose: testing
 commonLabels:
-  app: test-apache
-  
+  demo-label: test-apache
