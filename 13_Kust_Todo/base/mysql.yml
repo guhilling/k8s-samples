@@ -20,12 +20,17 @@ spec:
         - name: mysql-data
           persistentVolumeClaim:
             claimName: mysql
+        - name: mysql-init
+          configMap:
+            name: db-init
       containers:
       - image: registry.redhat.io/rhel8/mysql-80:1
         name: mysql-80
         volumeMounts:
           - mountPath: /var/lib/mysql/data
             name: mysql-data
+          - mountPath: /mysql-init
+            name: mysql-init
         ports:
           - containerPort: 3306
             name: mysql-db
