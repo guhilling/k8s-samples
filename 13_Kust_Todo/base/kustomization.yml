@@ -7,3 +7,11 @@ resources:
   - db-pvc.yml
   - mysql.yml
   - todo.yml
+
+configMapGenerator:
+  - name: db-init
+    files:
+      - db.sql
+
+commonAnnotations:
+  project: todonodejs
