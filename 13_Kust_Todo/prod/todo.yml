@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo
+spec:
+  replicas: 2
+  template:
+    spec:
+      containers:
+      - name: todo-api
+        resources:
+          limits:
+            cpu: 200m
+            memory: 512Mi
