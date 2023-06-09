@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: www-content
   annotations:
-    schmidtgruppe.it/contact: gunnar@hilling.de
+    hilling.de/contact: gunnar@hilling.de
   labels:
     app.kubernetes.io/name: mis
 data:
@@ -18,7 +18,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    schmidtgruppe.it/contact: gunnar@hilling.de
+    hilling.de/contact: gunnar@hilling.de
   labels:
     app: apache
     app.kubernetes.io/name: mis
@@ -33,7 +33,7 @@ spec:
         app: apache
         app.kubernetes.io/name: mis
       annotations:
-        schmidtgruppe.it/contact: gunnar@hilling.de
+        hilling.de/contact: gunnar@hilling.de
     spec:
       containers:
       - image: registry.access.redhat.com/ubi8/httpd-24:latest
