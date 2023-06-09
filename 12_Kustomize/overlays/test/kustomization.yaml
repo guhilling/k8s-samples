@@ -7,6 +7,6 @@ images:
   - name: registry.access.redhat.com/ubi8/httpd-24
     newTag: 1-140
 commonAnnotations:
-  isios.com/purpose: testing
+  hilling.de/purpose: testing
 commonLabels:
   demo-label: test-apache

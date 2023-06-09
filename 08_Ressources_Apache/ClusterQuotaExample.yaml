@@ -13,4 +13,4 @@ spec:
     annotations: null
     labels: 
       matchLabels:
-        isios.com/purpose: training
+        hilling.de/purpose: training
