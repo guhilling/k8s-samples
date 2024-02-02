@@ -8,4 +8,10 @@ Siehe auch:
 
 In OpenShift Data Foundation wird dies im "Internal Mode" _nicht_ unterstützt!
 
-In der Storageclass _muss_ der Metadatapool 3-way-replication unterstützen.
+In der Storageclass _muss_ der Metadatapool (```pool```) 3-way-replication unterstützen.
+
+Anlegen:
+
+```
+kubectl apply -k .
+```
