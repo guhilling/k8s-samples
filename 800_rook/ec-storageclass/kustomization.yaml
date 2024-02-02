@@ -1,0 +1,5 @@
+resources:
+- pool.yaml
+- sc.yaml
+- pvc.yaml
+- deployment.yaml

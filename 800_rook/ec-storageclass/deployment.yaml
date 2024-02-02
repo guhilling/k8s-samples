@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: apache
+  name: apache
+spec:
+  strategy:
+    type: Recreate
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apache
+  template:
+    metadata:
+      labels:
+        app: apache
+    spec:
+      containers:
+      - image: quay.io/ghilling/apache-demo:latest
+        name: apache-demo
+        resources:
+          limits:
+            cpu: 100m
+            memory: 256Mi
+        volumeMounts:
+          - name: web
+            mountPath: /var/www/html
+      volumes:
+        - name: web
+          persistentVolumeClaim:
+            claimName: demo-block-ec

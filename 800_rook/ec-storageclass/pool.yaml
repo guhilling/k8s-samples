@@ -1,0 +1,11 @@
+apiVersion: ceph.rook.io/v1
+kind: CephBlockPool
+metadata:
+  name: ecpool
+  namespace: openshift-storage
+spec:
+  erasureCoded:
+    codingChunks: 1
+    dataChunks: 2
+  parameters:
+    compression_mode: none
